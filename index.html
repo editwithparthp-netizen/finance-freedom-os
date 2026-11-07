@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827"><meta name="description" content="Your personal Finance Freedom OS learning and planning dashboard">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon-192.png">
+<title>Finance Freedom OS</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#19263b;--text:#eef4ff;--muted:#9aabc4;--accent:#6ee7b7;--line:#2a3a53}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,Arial,sans-serif}
+header{padding:22px 18px;background:linear-gradient(135deg,#14243a,#102b35);border-bottom:1px solid var(--line)}
+h1{font-size:23px;margin:0 0 5px}header p{margin:0;color:var(--muted)}
+nav{display:flex;overflow:auto;gap:8px;padding:12px;background:#0e1828;position:sticky;top:0;z-index:2}
+nav button,.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 13px;border-radius:10px;white-space:nowrap}
+nav button.active,.btn.primary{background:#17634f;border-color:#23876d}
+main{padding:16px;max-width:850px;margin:auto}.tab{display:none}.tab.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px;margin:10px 0}
+.metric{font-size:25px;font-weight:750;color:var(--accent)}.muted{color:var(--muted)}
+h2{font-size:19px;margin:8px 0 12px}h3{font-size:16px;margin:0 0 8px}
+label{display:block;color:var(--muted);margin:10px 0 5px}input,textarea,select{width:100%;padding:11px;border-radius:9px;border:1px solid var(--line);background:#0b1423;color:var(--text)}
+textarea{min-height:75px}button{cursor:pointer}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}
+li{margin:8px 0}.check{display:flex;gap:9px;align-items:flex-start;margin:10px 0}.check input{width:auto;margin-top:4px}
+small{color:var(--muted)}.result{font-size:20px;color:var(--accent);font-weight:700}
+footer{text-align:center;color:var(--muted);padding:24px;font-size:12px}
+</style></head>
+<body>
+<header><h1>💹 FINANCE FREEDOM OS</h1><p>Your 8-year learning, business and money-planning workspace</p></header>
+<nav id="nav">
+<button class="active" data-tab="home">Home</button><button data-tab="roadmap">8-Year Roadmap</button><button data-tab="daily">Daily Mission</button><button data-tab="sip">SIP Calculator</button><button data-tab="business">Business</button><button data-tab="journal">Paper Journal</button><button data-tab="learn">Learning</button>
+</nav>
+<main>
+<section id="home" class="tab active">
+<h2>Your dashboard</h2><div class="grid">
+<div class="card"><small>Monthly learning time</small><div class="metric">60 hrs</div><small>2 hours/day target</small></div>
+<div class="card"><small>Monthly SIP plan</small><div class="metric">₹100</div><small>Illustrative starting goal</small></div>
+<div class="card"><small>Trading mode</small><div class="metric">Paper</div><small>Practice, never risk needed money</small></div>
+</div>
+<div class="card"><h3>Today's focus</h3><p>Learn one concept, practise it on historical/demo charts, and build one useful business asset.</p><button class="btn primary" onclick="showTab('daily')">Open daily mission</button></div>
+<div class="card"><h3>Important</h3><p class="muted">This is an educational planner, not investment advice. Returns are never guaranteed. Since you are under 18, involve a parent/guardian for any permitted financial account. Keep trading practice on paper.</p></div>
+</section>
+<section id="roadmap" class="tab"><h2>8-year roadmap</h2>
+<div class="card"><h3>Year 1 — Foundations</h3><p>Personal finance, market basics, risk, spreadsheets, writing and consistent paper-trading records.</p></div>
+<div class="card"><h3>Year 2 — Skills & proof</h3><p>Build a portfolio of educational articles, calculators, journals and explainers. Review paper-trading data honestly.</p></div>
+<div class="card"><h3>Year 3 — Audience</h3><p>Publish useful beginner-friendly content. Learn editing, research, communication and customer feedback.</p></div>
+<div class="card"><h3>Year 4 — First product</h3><p>Test a free or low-cost learning tool. Keep content educational and transparent.</p></div>
+<div class="card"><h3>Year 5 — Business systems</h3><p>Improve product quality, support, bookkeeping and legal understanding.</p></div>
+<div class="card"><h3>Year 6 — Sustainable growth</h3><p>Build repeatable distribution and partnerships; avoid promises of profits.</p></div>
+<div class="card"><h3>Year 7 — Diversification</h3><p>Expand educational products and responsible long-term saving habits.</p></div>
+<div class="card"><h3>Year 8 — Review & independence</h3><p>Measure income, expenses, savings and business resilience. Adapt targets to real results.</p></div>
+</section>
+<section id="daily" class="tab"><h2>Daily mission planner</h2><div class="card">
+<p>Suggested 2-hour routine</p><div class="check"><input type="checkbox" data-save="m1"><span>30 min — Learn personal finance or market fundamentals</span></div>
+<div class="check"><input type="checkbox" data-save="m2"><span>30 min — Paper-trading study and chart replay</span></div>
+<div class="check"><input type="checkbox" data-save="m3"><span>40 min — Build your business/content asset</span></div>
+<div class="check"><input type="checkbox" data-save="m4"><span>20 min — Review notes and plan tomorrow</span></div>
+<button class="btn" onclick="resetChecks()">Reset today's checklist</button></div>
+<label>Today's notes</label><textarea id="dailyNotes" placeholder="What did you learn or create?"></textarea><button class="btn primary" onclick="saveText('dailyNotes')">Save notes</button></section>
+<section id="sip" class="tab"><h2>SIP calculator</h2><div class="card">
+<label>Monthly contribution (₹)</label><input id="sipAmount" type="number" min="0" value="100">
+<label>Expected annual return (%) — illustrative only</label><input id="sipRate" type="number" min="0" max="30" step=".5" value="10">
+<label>Years</label><input id="sipYears" type="number" min="1" max="50" value="8">
+<button class="btn primary" onclick="calcSIP()">Calculate estimate</button><p id="sipResult" class="result">Estimated value: —</p><small>Assumes monthly investing and a constant hypothetical return. Actual mutual-fund returns vary and can be negative.</small></div>
+<div class="card"><h3>Contribution log</h3><label>Amount saved this month (₹)</label><input id="savedAmount" type="number" min="0" placeholder="e.g. 100"><button class="btn" onclick="logSaving()">Add to log</button><p id="savingTotal" class="result">Logged: ₹0</p></div></section>
+<section id="business" class="tab"><h2>Business builder</h2><div class="card"><p>Build a financial-literacy business through useful education and tools—not promises of trading profits.</p>
+<label>Project / asset</label><input id="project" placeholder="e.g. Beginner investing glossary">
+<label>Next action</label><textarea id="nextAction" placeholder="What is the next small step?"></textarea><button class="btn primary" onclick="saveBusiness()">Save project</button><p id="businessSaved" class="muted"></p></div></section>
+<section id="journal" class="tab"><h2>Paper-trading journal</h2><div class="card">
+<label>Date</label><input id="tradeDate" type="date"><label>Symbol / instrument (paper only)</label><input id="symbol" placeholder="e.g. NIFTY (simulation)">
+<label>Setup and reason</label><textarea id="setup" placeholder="What was the planned setup?"></textarea>
+<label>Entry / exit (simulated)</label><div class="row"><input id="entry" placeholder="Entry"><input id="exit" placeholder="Exit"></div>
+<label>What did you learn?</label><textarea id="lesson"></textarea><button class="btn primary" onclick="saveTrade()">Save paper-trade note</button><p id="tradeSaved" class="muted"></p></div>
+<div class="card"><h3>Journal history</h3><div id="tradeList" class="muted">No entries yet.</div></div></section>
+<section id="learn" class="tab"><h2>Learning library</h2><div class="card"><h3>Personal finance</h3><ul><li>Budgeting, saving and emergency funds</li><li>Inflation, compounding and diversification</li><li>Mutual funds, index funds, NAV and SIP basics</li></ul></div>
+<div class="card"><h3>Markets & risk</h3><ul><li>Market structure and order types</li><li>Position sizing and risk/reward concepts</li><li>Backtesting, paper trading and journaling</li><li>SEBI investor education and regulations</li></ul></div>
+<div class="card"><h3>Business skills</h3><ul><li>Research and clear writing</li><li>Video editing and audience building</li><li>Product design, customer interviews and bookkeeping</li></ul></div></section>
+</main><footer>Finance Freedom OS • Your data is saved in this browser on this device.</footer>
+<script>
+const $=id=>document.getElementById(id);
+function showTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+function put(k,v){localStorage.setItem('ffos_'+k,v)}function get(k,d=''){return localStorage.getItem('ffos_'+k)??d}
+function saveText(id){put(id,$(id).value);alert('Saved on this device.')}
+$('dailyNotes').value=get('dailyNotes');
+document.querySelectorAll('[data-save]').forEach(c=>{c.checked=get(c.dataset.save)==='1';c.addEventListener('change',()=>put(c.dataset.save,c.checked?'1':'0'))});
+function resetChecks(){document.querySelectorAll('[data-save]').forEach(c=>{c.checked=false;put(c.dataset.save,'0')})}
+function calcSIP(){let p=+ $('sipAmount').value,r=+$('sipRate').value/1200,n=+$('sipYears').value*12;let v=r? p*((Math.pow(1+r,n)-1)/r)*(1+r):p*n;$('sipResult').textContent='Estimated value: ₹'+Math.round(v).toLocaleString('en-IN')+' • Invested: ₹'+(p*n).toLocaleString('en-IN')}
+function logSaving(){let n=+$('savedAmount').value;let t=+(get('savingTotal','0'))+Math.max(0,n);put('savingTotal',t);$('savingTotal').textContent='Logged: ₹'+t.toLocaleString('en-IN');$('savedAmount').value=''}
+$('savingTotal').textContent='Logged: ₹'+(+get('savingTotal','0')).toLocaleString('en-IN');
+function saveBusiness(){put('businessProject',$('project').value);put('businessAction',$('nextAction').value);$('businessSaved').textContent='Project saved on this device.'}
+$('project').value=get('businessProject');$('nextAction').value=get('businessAction');
+function saveTrade(){let a=JSON.parse(get('trades','[]'));a.unshift({date:$('tradeDate').value,symbol:$('symbol').value,setup:$('setup').value,entry:$('entry').value,exit:$('exit').value,lesson:$('lesson').value});put('trades',JSON.stringify(a));renderTrades();$('tradeSaved').textContent='Paper-trading note saved.'}
+function renderTrades(){let a=JSON.parse(get('trades','[]'));$('tradeList').innerHTML=a.length?a.map(t=>`<div class="card"><b>${esc(t.date)} · ${esc(t.symbol)}</b><p>${esc(t.setup)}</p><small>Entry: ${esc(t.entry)} | Exit: ${esc(t.exit)}</small><p>${esc(t.lesson)}</p></div>`).join(''):'No entries yet.'}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}renderTrades();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
